@@ -4,9 +4,10 @@
  * Caitlin Vinci
  * caitlinvinci@gmail.com
  *  
- * 
- * 
- * 
+ * This program uses merge and its helper methods from 
+ * SortCount.java. The method intersect was created to 
+ * take two arrays and return a new array of each intersecting
+ * integer. 
  * 
  */
 import java.util.*;
@@ -25,7 +26,13 @@ public class Intersect {
         return comparison;
     }
     
-    
+    /*
+     * intersect takes two arrays, passes them to mergeSort, then
+     * compares the two arrays using a merge technique to find instances
+     * of intersection. 
+     * An array of the intersecting integers is returned. 
+     * 
+     */
     public static int [] intersect(int [] arrA, int [] arrB) {
 
         int length = 0; 
@@ -33,7 +40,7 @@ public class Intersect {
             length = arrB.length;
         else 
             length = arrA.length; 
-        
+        //make an array of the length of the shorter parameter
         int [] intersect = new int [length]; 
         
         mergeSort(arrA); 
@@ -45,18 +52,14 @@ public class Intersect {
         printArray(arrB); 
         
         System.out.println("Moves before intersect: " + moves); 
-        int i = 0; 
-        int j = 0; 
-        int k = 0; 
+        int i = 0; //walks down the arrA array
+        int j = 0; //walks down the arrB array
+        int k = 0; //walks down the intersection array
         
         while (i < arrA.length && j < arrB.length) {
 
-            if (compare(arrA[i] < arrB[j]))
-                i++; 
-            if (compare(arrA[i] > arrB[j])) //indexout...
-                j++; 
-            
-            if (compare(arrA[i] == arrB[j])) { //indexout...
+           
+            if (compare(arrA[i] == arrB[j])) {
                 
                 if (k < intersect.length)
                     intersect[k] = arrA[i]; 
@@ -64,6 +67,14 @@ public class Intersect {
                     printArray(intersect);
                     i++; 
                     j++; 
+            }
+            
+            else if (compare(arrA[i] < arrB[j])) {
+                i++; 
+                
+            }
+            else {
+                j++; 
             }
             moves++;
         }
@@ -73,7 +84,7 @@ public class Intersect {
         
     }
     
-        /* merge - helper method for mergesort */
+    /* merge - helper method for mergesort */
     private static void merge(int[] arr, int[] tmp, 
                               int leftStart, int leftEnd, int rightStart, int rightEnd)
     {
